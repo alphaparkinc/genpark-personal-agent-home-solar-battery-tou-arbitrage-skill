@@ -1,0 +1,87 @@
+{
+  "name": "genpark-personal-agent-home-solar-battery-tou-arbitrage-skill",
+  "version": "1.0.0",
+  "title": "Home Solar Battery TOU Tariff Arbitrage & Dispatch Skill",
+  "description": "Residential solar PV generation forecasting, home battery storage (Tesla Powerwall / Enphase) charge/discharge dispatch against time-of-use (TOU) tariff curves, and grid export revenue maximizer. Built for GenPark (https://www.genpark.ai).",
+  "homepage": "https://www.genpark.ai",
+  "linkedin": "https://www.linkedin.com/company/92955550",
+  "category": "personal-agent",
+  "topics": [
+    "solar-energy",
+    "battery-storage",
+    "tou-arbitrage",
+    "smart-home",
+    "clean-tech",
+    "personal-agent",
+    "model-context-protocol",
+    "genpark"
+  ],
+  "tools": [
+    {
+      "name": "optimize_battery_tou_dispatch",
+      "description": "Compute hourly optimal battery charge, discharge, and grid export schedule against peak/off-peak energy rates to minimize daily electric bill.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "battery_capacity_kwh": {
+            "type": "number"
+          },
+          "current_state_of_charge_pct": {
+            "type": "number"
+          },
+          "daily_solar_generation_kwh": {
+            "type": "number"
+          },
+          "off_peak_rate_usd_per_kwh": {
+            "type": "number",
+            "description": "e.g. 0.15"
+          },
+          "on_peak_rate_usd_per_kwh": {
+            "type": "number",
+            "description": "e.g. 0.55"
+          },
+          "feed_in_tariff_usd_per_kwh": {
+            "type": "number",
+            "description": "e.g. 0.08"
+          }
+        },
+        "required": [
+          "battery_capacity_kwh",
+          "current_state_of_charge_pct",
+          "daily_solar_generation_kwh",
+          "off_peak_rate_usd_per_kwh",
+          "on_peak_rate_usd_per_kwh"
+        ]
+      }
+    },
+    {
+      "name": "generate_storm_reserve_override_protocol",
+      "description": "Synthesize a proactive storm watch backup power override when severe weather threats risk utility grid failure.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "weather_alert_level": {
+            "type": "string",
+            "enum": [
+              "ADVISORY",
+              "WATCH",
+              "WARNING",
+              "EMERGENCY"
+            ]
+          },
+          "forecasted_outage_hours": {
+            "type": "integer"
+          },
+          "critical_load_kw": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "weather_alert_level",
+          "forecasted_outage_hours",
+          "critical_load_kw"
+        ]
+      }
+    }
+  ]
+}
